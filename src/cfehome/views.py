@@ -1,7 +1,27 @@
 from django.shortcuts import HttpResponse,render
 from visits.models import PageVisit
 
+def visit(request,*args, **kwargs):
+    all_visits = PageVisit.objects.all()
+    page_visit = PageVisit.objects.filter(path = request.path)
+    try:
+        percent = (all_visits.count()*100.0) / page_visit.count()
+    except:
+        percent = 0
+    context = {
+        "total_visit_count":all_visits.count(),
+        "page_visit_count":page_visit.count(),
+        "percent":percent
+    }
+    return context
+def home_view(request,*args, **kwargs):
+    context = visit(request,*args, **kwargs)
+    PageVisit.objects.create(path=request.path)
+    return render(request,"home.html",context=context)
 
-def home_page_view(request,*args, **kwargs):
-    
-    return render(request,"home.html")
+
+
+def about_view(request,*args, **kwargs):
+    context = visit(request,*args, **kwargs)
+    PageVisit.objects.create(path=request.path)
+    return render(request,"about.html",context=context)
