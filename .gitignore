@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+# ingore vendor static files 
+src/staticfiles/vendors/
+src/local-cdn
+
+
 # Distribution / packaging
 .Python
 build/

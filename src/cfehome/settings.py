@@ -96,18 +96,18 @@ DATABASES = {
 }
 
 
-CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=300)
-DATABASE_URL = config("DATABASE_URL", default=None)
+# CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=300)
+# DATABASE_URL = config("DATABASE_URL", default=None)
 
-if DATABASE_URL is not None:
-    import dj_database_url
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=CONN_MAX_AGE,
-            conn_health_checks=True,
-        )
-    }
+# if DATABASE_URL is not None:
+#     import dj_database_url
+#     DATABASES = {
+#         "default": dj_database_url.config(
+#             default=DATABASE_URL,
+#             conn_max_age=CONN_MAX_AGE,
+#             conn_health_checks=True,
+#         )
+#     }
 
 
 
@@ -146,6 +146,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_BASE_DIR = BASE_DIR / "staticfiles"
+STATICFILES_VENDOR_DIR = STATICFILES_BASE_DIR / "vendors"
+
+
+# source(s) for manage.py collectstatic
+STATICFILES_DIRS = [
+    STATICFILES_BASE_DIR
+]
+
+# output for manage.py collectstatic
+# local-cdn
+STATIC_ROOT = BASE_DIR / "local-cdn"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

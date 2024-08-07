@@ -5,7 +5,7 @@ def visit(request,*args, **kwargs):
     all_visits = PageVisit.objects.all()
     page_visit = PageVisit.objects.filter(path = request.path)
     try:
-        percent = (all_visits.count()*100.0) / page_visit.count()
+        percent = (page_visit.count()*100.0) / all_visits.count()
     except:
         percent = 0
     context = {
